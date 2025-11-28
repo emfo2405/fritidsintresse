@@ -7,13 +7,13 @@ import {
   Where,
 } from '@loopback/repository';
 import {
-  post,
-  param,
+  del,
   get,
   getModelSchemaRef,
+  param,
   patch,
+  post,
   put,
-  del,
   requestBody,
   response,
 } from '@loopback/rest';
@@ -23,8 +23,8 @@ import {BookRepository} from '../repositories';
 export class BookCtrlController {
   constructor(
     @repository(BookRepository)
-    public bookRepository : BookRepository,
-  ) {}
+    public bookRepository: BookRepository,
+  ) { }
 
   @post('/books')
   @response(200, {
@@ -105,7 +105,7 @@ export class BookCtrlController {
     },
   })
   async findById(
-    @param.path.number('id') id: number,
+    @param.path.number('id') id: string,
     @param.filter(Book, {exclude: 'where'}) filter?: FilterExcludingWhere<Book>
   ): Promise<Book> {
     return this.bookRepository.findById(id, filter);
@@ -116,7 +116,7 @@ export class BookCtrlController {
     description: 'Book PATCH success',
   })
   async updateById(
-    @param.path.number('id') id: number,
+    @param.path.number('id') id: string,
     @requestBody({
       content: {
         'application/json': {
@@ -134,7 +134,7 @@ export class BookCtrlController {
     description: 'Book PUT success',
   })
   async replaceById(
-    @param.path.number('id') id: number,
+    @param.path.number('id') id: string,
     @requestBody() book: Book,
   ): Promise<void> {
     await this.bookRepository.replaceById(id, book);
@@ -144,7 +144,7 @@ export class BookCtrlController {
   @response(204, {
     description: 'Book DELETE success',
   })
-  async deleteById(@param.path.number('id') id: number): Promise<void> {
+  async deleteById(@param.path.number('id') id: string): Promise<void> {
     await this.bookRepository.deleteById(id);
   }
 }
