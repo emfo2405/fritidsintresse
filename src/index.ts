@@ -2,6 +2,8 @@ import {ApplicationConfig, FritidsintresseApplication} from './application';
 
 export * from './application';
 
+require('dotenv').config();
+
 export async function main(options: ApplicationConfig = {}) {
   const app = new FritidsintresseApplication(options);
   await app.boot();
