@@ -8,6 +8,7 @@ export class BookRepository extends DefaultCrudRepository<
   typeof Book.prototype.ID,
   BookRelations
 > {
+
   constructor(
     @inject('datasources.db') dataSource: DbDataSource,
   ) {
