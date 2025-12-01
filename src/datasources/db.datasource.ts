@@ -7,7 +7,8 @@ dotenv.config();
 const config = {
   name: 'db',
   connector: 'mongodb',
-  url: process.env.DB_URL,
+  url: process.env.MONGODB_URI,
+  database: process.env.DB_NAME,
 };
 
 // Observe application's life cycle to disconnect the datasource when
