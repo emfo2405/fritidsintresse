@@ -8,7 +8,7 @@ export class Book extends Entity {
     id: true,
     generated: false,
   })
-  ID?: string;
+  _id?: string;
 
   @property({
     type: 'string',
@@ -41,7 +41,7 @@ export class Book extends Entity {
     type: 'number',
     required: true,
     jsonSchema: {
-      maxLength: 1000,
+      maximum: 9999,
     },
   })
   Published: number;

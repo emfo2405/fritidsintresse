@@ -37,12 +37,12 @@ export class BookCtrlController {
         'application/json': {
           schema: getModelSchemaRef(Book, {
             title: 'NewBook',
-            exclude: ['ID'],
+            exclude: ['_id'],
           }),
         },
       },
     })
-    book: Omit<Book, 'ID'>,
+    book: Omit<Book, '_id'>,
   ): Promise<Book> {
     return this.bookRepository.create(book);
   }
@@ -95,7 +95,7 @@ export class BookCtrlController {
     return this.bookRepository.updateAll(book, where);
   }
 
-  @get('/books/{id}')
+  @get('/books/{_id}')
   @response(200, {
     description: 'Book model instance',
     content: {
@@ -105,18 +105,18 @@ export class BookCtrlController {
     },
   })
   async findById(
-    @param.path.number('id') id: string,
+    @param.path.string('_id') _id: string,
     @param.filter(Book, {exclude: 'where'}) filter?: FilterExcludingWhere<Book>
   ): Promise<Book> {
-    return this.bookRepository.findById(id, filter);
+    return this.bookRepository.findById(_id, filter);
   }
 
-  @patch('/books/{id}')
+  @patch('/books/{_id}')
   @response(204, {
     description: 'Book PATCH success',
   })
   async updateById(
-    @param.path.number('id') id: string,
+    @param.path.string('_id') _id: string,
     @requestBody({
       content: {
         'application/json': {
@@ -126,25 +126,25 @@ export class BookCtrlController {
     })
     book: Book,
   ): Promise<void> {
-    await this.bookRepository.updateById(id, book);
+    await this.bookRepository.updateById(_id, book);
   }
 
-  @put('/books/{id}')
+  @put('/books/{_id}')
   @response(204, {
     description: 'Book PUT success',
   })
   async replaceById(
-    @param.path.number('id') id: string,
+    @param.path.string('_id') _id: string,
     @requestBody() book: Book,
   ): Promise<void> {
-    await this.bookRepository.replaceById(id, book);
+    await this.bookRepository.replaceById(_id, book);
   }
 
-  @del('/books/{id}')
+  @del('/books/{_id}')
   @response(204, {
     description: 'Book DELETE success',
   })
-  async deleteById(@param.path.number('id') id: string): Promise<void> {
-    await this.bookRepository.deleteById(id);
+  async deleteById(@param.path.string('_id') _id: string): Promise<void> {
+    await this.bookRepository.deleteById(_id);
   }
 }

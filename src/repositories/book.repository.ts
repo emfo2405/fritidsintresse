@@ -5,7 +5,7 @@ import {Book, BookRelations} from '../models';
 
 export class BookRepository extends DefaultCrudRepository<
   Book,
-  typeof Book.prototype.ID,
+  typeof Book.prototype._id,
   BookRelations
 > {
   constructor(
